@@ -37,8 +37,8 @@ class FrictionData:
     else:
        print("Type error : machine type is not defined.")
     
-    self.data['frictionCoefficient'] = self.data['friction']/self.load
-    self.data['abs_frictionCoefficient'] = np.abs(self.data['frictionCoefficient'])
+    self.data['fce'] = self.data['friction']/self.load
+    self.data['abs_fce'] = np.abs(self.data['fce'])
     
     if self.type == 'sin':
         self.period = 60/self.speed/self.samplingRate
@@ -52,15 +52,15 @@ class FrictionData:
     ax1 = fig.add_subplot(111)
     ax1.set_title(str(self.material)+'-'+str(self.type)+'-'+str(self.speed)+'-'+str(self.length), fontsize = 18)
     ax1.set_xlabel("time[point]", size = 18, weight = "light")
-    ax1.set_ylabel("frictionCoefficient", size = 18, weight = "light")
+    ax1.set_ylabel("fce", size = 18, weight = "light")
     ax1.set_ylim(-1*range, range)
-    ax1.plot(self.data['frictionCoefficient'], label="frictionCoefficient", color="#81cac4")
+    ax1.plot(self.data['fce'], label="fce", color="#81cac4")
     
     if self.type == 'sin':
         ax2 = ax1.twinx()
         ax2.set_ylabel("displacement", size = 18, weight = "light")
-        ax2.set_ylim(-11, 11)
-        ax2.plot(self.data.displacement, label="displacement", color="#dd0077")
+        ax2.set_ylim(-1*self.length/4, self.length/4)
+        ax2.plot(self.data['displacement'], label="displacement", color="#dd0077")
     
     plt.tight_layout()
     plt.show()
@@ -70,21 +70,21 @@ class FrictionData:
     ax1 = fig.add_subplot(111)
     ax1.set_title('abs_'+str(self.material)+'-'+str(self.type)+'-'+str(self.speed)+'-'+str(self.length), fontsize = 18)
     ax1.set_xlabel("time[point]", size = 18, weight = "light")
-    ax1.set_ylabel("abs_frictionCoefficient", size = 18, weight = "light")
+    ax1.set_ylabel("abs_fce", size = 18, weight = "light")
     ax1.set_ylim(0, range)
-    ax1.plot(self.data['abs_frictionCoefficient'], label="abs_frictionCoefficient", color="#81cac4")
+    ax1.plot(self.data['abs_fce'], label="abs_fce", color="#81cac4")
     
     if self.type == 'sin':
         ax2 = ax1.twinx()
         ax2.set_ylabel('displacement', size = 18, weight = "light")
         ax2.set_ylim(-11, 11)
-        ax2.plot(self.data.displacement, label="displacement", color="#dd0077")
+        ax2.plot(self.data['displacement'], label="displacement", color="#dd0077")
     
     plt.tight_layout()
     plt.show()
 
   def decompose(self,range):
-    self.decomposed = sm.tsa.seasonal_decompose(self.data['frictionCoefficient'], period=int(self.period))
+    self.decomposed = sm.tsa.seasonal_decompose(self.data['fce'], period=int(self.period))
 
     # visualize
     # self.decomposed.plot()
@@ -107,7 +107,7 @@ class FrictionData:
     plt.show()
 
   def decompose_abs(self,range):
-    self.decomposed_abs = sm.tsa.seasonal_decompose(self.data['abs_frictionCoefficient'], period=int(self.period))
+    self.decomposed_abs = sm.tsa.seasonal_decompose(self.data['abs_fce'], period=int(self.period))
 
     # visualize
     # self.decomposed.plot()
@@ -127,12 +127,20 @@ class FrictionData:
     axes[3].plot(self.decomposed_abs.resid)
     plt.tight_layout()
     plt.show()
+    
+  def calc_v_vs_fce(self):
+    if self.type == 'sin':
+        self.data['v'] = self.data['displacement'].diff()/self.samplingRate
+    plt.title(str(self.material)+'-'+str(self.type)+'-'+str(self.speed)+'-'+str(self.length))
+    plt.grid(True)
+    plt.scatter(self.data['v'], self.data['fce'])
+    plt.show()
 
   def adf(self):
-    ctt  = sm.tsa.stattools.adfuller(self.data['frictionCoefficient'], regression="ctt")
-    ct = sm.tsa.stattools.adfuller(self.data['frictionCoefficient'], regression="ct")
-    c = sm.tsa.stattools.adfuller(self.data['frictionCoefficient'], regression="c")
-    nc = sm.tsa.stattools.adfuller(self.data['frictionCoefficient'], regression="nc")
+    ctt  = sm.tsa.stattools.adfuller(self.data['fce'], regression="ctt")
+    ct = sm.tsa.stattools.adfuller(self.data['fce'], regression="ct")
+    c = sm.tsa.stattools.adfuller(self.data['fce'], regression="c")
+    nc = sm.tsa.stattools.adfuller(self.data['fce'], regression="nc")
     print("ctt:")
     print(ctt)
     print("---------------------------------------------------------------------------------------------------------------")
