@@ -8,13 +8,14 @@ import statsmodels.api as sm
 #### Visualize related libraries
 from matplotlib import pylab as plt
 from matplotlib.pylab import rcParams
-rcParams['figure.figsize'] = 15, 6
+rcParams['figure.figsize'] = 16, 6
 
 
 #### Define class
 class FrictionData:
   def __init__(self, name, conditions):
     self.name = str(name)
+    self.material = str(conditions.loc[name].material)
     self.type = str(conditions.loc[name].type)
     self.load = float(conditions.loc[name].load)
     self.speed = float(conditions.loc[name].speed)
@@ -49,7 +50,7 @@ class FrictionData:
   def plot_rawData(self, range):
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
-    ax1.set_title(self.name, fontsize = 18)
+    ax1.set_title(str(self.material)+'-'+str(self.type)+'-'+str(self.speed)+'-'+str(self.length), fontsize = 18)
     ax1.set_xlabel("time[point]", size = 18, weight = "light")
     ax1.set_ylabel("frictionCoefficient", size = 18, weight = "light")
     ax1.set_ylim(-1*range, range)
@@ -61,12 +62,13 @@ class FrictionData:
         ax2.set_ylim(-11, 11)
         ax2.plot(self.data.displacement, label="displacement", color="#dd0077")
     
+    plt.tight_layout()
     plt.show()
 
   def plot_absData(self, range):
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
-    ax1.set_title(self.name, fontsize = 18)
+    ax1.set_title('abs_'+str(self.material)+'-'+str(self.type)+'-'+str(self.speed)+'-'+str(self.length), fontsize = 18)
     ax1.set_xlabel("time[point]", size = 18, weight = "light")
     ax1.set_ylabel("abs_frictionCoefficient", size = 18, weight = "light")
     ax1.set_ylim(0, range)
@@ -78,6 +80,7 @@ class FrictionData:
         ax2.set_ylim(-11, 11)
         ax2.plot(self.data.displacement, label="displacement", color="#dd0077")
     
+    plt.tight_layout()
     plt.show()
 
   def decompose(self,range):
@@ -86,7 +89,7 @@ class FrictionData:
     # visualize
     # self.decomposed.plot()
     fig, axes = plt.subplots(nrows=4, ncols=1,sharex=True)
-    axes[0].set_title(self.name + '-' + self.type + '\n Observed')
+    axes[0].set_title(str(self.material)+'-'+str(self.type)+'-'+str(self.speed)+'-'+str(self.length) + '\n Observed')
     axes[0].set_ylim(-1*range[0], range[0])
     axes[0].plot(self.decomposed.observed)
     plt.hlines([0], min(self.data['\n time']), max(self.data['time']), "black", linestyles='dashed')
@@ -100,6 +103,7 @@ class FrictionData:
     axes[3].set_ylim(-1*range[3], range[3])
     axes[3].plot(self.decomposed.resid)
     plt.hlines([0], min(self.data['time']), max(self.data['time']), "black", linestyles='dashed')  
+    plt.tight_layout()
     plt.show()
 
   def decompose_abs(self,range):
@@ -108,7 +112,7 @@ class FrictionData:
     # visualize
     # self.decomposed.plot()
     fig, axes = plt.subplots(nrows=4, ncols=1,sharex=True)
-    axes[0].set_title(self.name + '-' + self.type + '\n Observed')
+    axes[0].set_title('abs_'+str(self.material)+'-'+str(self.type)+'-'+str(self.speed)+'-'+str(self.length) + '\n Observed')
     axes[0].set_ylim(0, range[0])
     axes[0].plot(self.decomposed_abs.observed)
     plt.hlines([0], min(self.data['time']), max(self.data['time']), "black", linestyles='dashed')
@@ -121,6 +125,7 @@ class FrictionData:
     axes[3].set_title('\n Residual')
     axes[3].set_ylim(0, range[3])
     axes[3].plot(self.decomposed_abs.resid)
+    plt.tight_layout()
     plt.show()
 
   def adf(self):
