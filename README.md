@@ -10,7 +10,8 @@ conda env create -f=env_friction_2.yml
 ```
 
 ## Usage
-1. ディレクトリ構造  
+1. ディレクトリ構造
+```
   WD  
   |__Analysis  
   |__|__*.ipynb
@@ -18,6 +19,7 @@ conda env create -f=env_friction_2.yml
   |  |__*Raw data directory  
   |  |__*conditions.csv  
   |__Questionnaire  
+```
 1. データを格納  
   1.1 トリニティデータ  
     * Dataディレクトリ内にデータを格納
