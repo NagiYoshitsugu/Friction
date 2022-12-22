@@ -1,0 +1,8 @@
+,,,,sin/square,,,,g,rpm,mm,,Hz,,sec,sec,sec,,relative path
+data,trial,material,machine,type,contactMaker,plate,loadCell,load,speed,stroke,times,samplingRate,skipRows,time_rest,time_start,time_stop,date,path
+20221220_01,1,none,TrinityLab,sin,Finger,sample2,new,50,1.5,10,5,1000,56,0.1,0.2,0.2,2022/9/28,Data/20221220_car_noFingerprint/sample2-1^5rpm-50gf-0928-n1.csv
+20221220_02,2,none,TrinityLab,sin,Finger,sample2,new,50,1.5,10,5,1000,56,0.1,0.2,0.2,2022/9/28,Data/20221220_car_noFingerprint/sample2-1^5rpm-50gf-0928-n2.csv
+20221220_03,3,none,TrinityLab,sin,Finger,sample2,new,50,1.5,10,5,1000,56,0.1,0.2,0.2,2022/9/28,Data/20221220_car_noFingerprint/sample2-1^5rpm-50gf-0928-n3.csv
+20221220_04,1,none,TrinityLab,sin,Finger,sample3,new,50,1.5,10,5,1000,56,0.1,0.2,0.2,2022/9/28,Data/20221220_car_noFingerprint/sample3-1^5rpm-50gf-0928-n1.csv
+20221220_05,2,none,TrinityLab,sin,Finger,sample3,new,50,1.5,10,5,1000,56,0.1,0.2,0.2,2022/9/28,Data/20221220_car_noFingerprint/sample3-1^5rpm-50gf-0928-n2.csv
+20221220_06,3,none,TrinityLab,sin,Finger,sample3,new,50,1.5,10,5,1000,56,0.1,0.2,0.2,2022/9/28,Data/20221220_car_noFingerprint/sample3-1^5rpm-50gf-0928-n3.csv
