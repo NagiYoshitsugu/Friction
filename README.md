@@ -26,5 +26,6 @@ conda env create -f=env_friction_2.yml
     * [date]_conditions.csvを作成→例
 1. 仮想環境をアクティベート
 ```
-conda activate 
+conda activate friction_2
 ```
+1. notebookにパラメータ入力
