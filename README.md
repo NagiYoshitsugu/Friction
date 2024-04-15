@@ -24,6 +24,7 @@ conda env create -f=env_friction_2.yml
   1.1 トリニティデータ  
     * Dataディレクトリ内にデータを格納
     * [date]_conditions.csvを作成→例
+        * A列は重複がないように定義してください。
 2. 仮想環境をアクティベート
 ```
 conda activate friction_2
